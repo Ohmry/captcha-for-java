@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: captcha-for-java
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false

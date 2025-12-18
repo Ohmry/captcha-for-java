@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:utext="${captchaImg}"></div>
+<input type="text" placeholder="입력">
+<button>확인</button>
+<span>Result: </span><span id="message"></span>
+<script>
+    window.addEventListener('load', () => {
+        const button = document.querySelector('button');
+        const input = document.querySelector('input');
+        const message = document.getElementById('message');
+        button.addEventListener('click', async () => {
+            const authCode = input.value;
+            const response = await fetch('/auth', {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    authCode: authCode
+                })
+            });
+
+            const data = await response.json();
+            message.innerText = data['message'];
+        });
+    });
+</script>
+</body>
+</html>
